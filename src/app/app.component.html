@@ -21,7 +21,7 @@
 		        <span *ngIf="p.place_name"><strong>Place Name:</strong> {{p.place_name}}<br></span>        
 		    </sebm-google-map-info-window>
 		  </sebm-google-map-marker>
-		  <sebm-google-map-polyline (lineClick)="polyLineClicked()" [strokeColor]="strokeColor">
+		  <sebm-google-map-polyline  (lineMouseOver)="polyLineToggle()" (lineMouseOut)="polyLineToggle()" [strokeColor]="strokeColor">
 		         <sebm-google-map-polyline-point *ngFor="let p of polypoints let i = index;" [latitude]="p.lat" [longitude]="p.lng">
 		         </sebm-google-map-polyline-point>
 		         <sebm-google-map-info-window *ngIf="path" [disableAutoPan]="true" [latitude]="lat" [longitude]="lng" [isOpen]="enablePolyInfoWindow" (infoWindowClose)="enablePolyInfoWindow = false">
@@ -33,15 +33,21 @@
 		         </sebm-google-map-info-window>
 		     </sebm-google-map-polyline>
 		</sebm-google-map>
-	</div>      
+		<br>
+	</div>   
+	
+	<div class="col-md-2">
+	</div> 
+	<div class="col-md-10">
+		<button type="button" class="btn btn-info" (click)="zoom=10">Zoom 10</button>
+		<button type="button" class="btn btn-info" (click)="zoom=12">Zoom 12</button>
+		<button type="button" class="btn btn-info" (click)="zoom=14">Zoom 14</button>
+		<button type="button" class="btn btn-info" (click)="zoom=16">Zoom 16</button>
+		<button type="button" class="btn btn-info" (click)="zoom=18">Zoom 18</button>
+	</div>  
 </div>
 
 
-
-
-<!-- <ul>
- <li *ngFor="let p of posts;">User ID: {{p.userId}} Title: {{p.title}}<li>
-</ul> -->
 
 
  

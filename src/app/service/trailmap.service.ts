@@ -1,12 +1,12 @@
 import { Injectable }     from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Post }           from '../post';
-import { bundle } from './TrailClasses';
+import { Bundle } from '../shared/Bundle';
 import { Observable }     from 'rxjs/Observable';
 import '../rxjs-operators';
 
 @Injectable()
-export class TrailmapService {
+export class TrailMapService {
 
   //private trailsUrl = 'app/service/trails';
   
@@ -14,7 +14,7 @@ export class TrailmapService {
 
   constructor(private http: Http) { }
   
-  getTrails(): Observable<bundle> {
+  getTrails(): Observable<Bundle> {
     return this.http.get(this.trailsUrl)
                     .map(this.extractData)
                     .catch(this.handleError);
@@ -22,7 +22,7 @@ export class TrailmapService {
   
   private extractData(res: Response) {
     let body = res.json();
-    console.log("Trails Map Loaded: "+body);
+    //console.log("Trails Map Loaded: "+body);
     return body || { };
   }
   private handleError (error: Response | any) {

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { coordinate } from './coordinate';
-import { PostserviceService } from './service/postservice.service';
-import { TrailmapService } from './service/trailmap.service'
+import { TrailMapService } from './service/trailmap.service'
 import { Post }           from './post';
-import { bundle, Path, Place } from './service/TrailClasses';
+import { Bundle } from './shared/Bundle';
+import { Path } from './shared/Path';
+import { Place } from './shared/Place';
+import { PlacePosition } from './shared/PlacePosition';
 import './rxjs-operators';
 
 @Component({
@@ -19,11 +20,11 @@ import './rxjs-operators';
 export class AppComponent {
   title = 'Trail App';
   
-  lat: number = 51.678418;
-  lng: number = 7.809007;
+  lat: number = 63.8257414;
+  lng: number = 20.2636883;
   zoom: number = 15;
   strokeColor: string = "green";
-  polypoints: coordinate[] = [];
+  polypoints: PlacePosition[] = [];
   places: Place[] = [];
   posts: Post[] = [];
   paths: Path[];
@@ -31,14 +32,9 @@ export class AppComponent {
   enablePolyInfoWindow: boolean = false;
   errorMessage;
   
-  constructor(private postService: PostserviceService, private trailService: TrailmapService) {}
+  constructor(private trailService: TrailMapService) {}
   
-  getMarkers(){
-    //this.markers = this.getCoordinates();
-    //this.lat = this.markers[0].lat;
-    //this.lng = this.markers[0].lng;
-  }
-  
+    
   setPolylines(index: number){
     this.polypoints = this.paths[index].path_polyline[0];
     this.places = this.paths[index].places;
@@ -57,13 +53,6 @@ export class AppComponent {
     this.paths = newPaths;
   }
   
-   
-  getPosts() {
-    this.postService.getPosts()
-                     .subscribe(
-                       posts => this.posts = posts,
-                       error =>  this.errorMessage = <any>error);
-  }
   
   getTrails(){
     this.trailService.getTrails()
@@ -72,51 +61,10 @@ export class AppComponent {
                       error => this.errorMessage = <any>error);
   }
   
-  polyLineClicked(){
+  polyLineToggle(){
     console.log("Clicked. Setting it to "+!this.enablePolyInfoWindow);
     this.enablePolyInfoWindow = !this.enablePolyInfoWindow;
   }
 
-  getCoordinates(): coordinate[]{
-    
-    
-    return [
-              {  
-                  "lat":63.825552003290262,
-                  "lng":20.264759659767151
-               },
-               {  
-                  "lat":63.825395828696379,
-                  "lng":20.264148116111755
-               },
-               {  
-                  "lat":63.825362700640881,
-                  "lng":20.263268351554871
-               },
-               {  
-                  "lat":63.825466817255517,
-                  "lng":20.262570977210999
-               },
-               {  
-                  "lat":63.825750769702616,
-                  "lng":20.262517333030701
-               },
-               {  
-                  "lat":63.825888012359052,
-                  "lng":20.263128876686096
-               },
-               {  
-                  "lat":63.825869082377231,
-                  "lng":20.263976454734802
-               },
-               {  
-                  "lat":63.825675049330016,
-                  "lng":20.264384150505066
-               },
-               {  
-                  "lat":63.825552003290262,
-                  "lng":20.264759659767151
-               }
-    ];
-  }
+  
 }

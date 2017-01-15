@@ -47,6 +47,16 @@ export class AppComponent {
     this.lng = this.polypoints[0].lng;
   }
   
+  removeEmptyPaths(){
+    var newPaths = [];
+    this.paths.forEach(function(current_path){
+      if(current_path.path_name){
+        newPaths.push(current_path);
+      }
+    });
+    this.paths = newPaths;
+  }
+  
    
   getPosts() {
     this.postService.getPosts()
@@ -58,7 +68,7 @@ export class AppComponent {
   getTrails(){
     this.trailService.getTrails()
                       .subscribe(
-                      bundle => this.paths = bundle.paths,
+                      bundle => {this.paths = bundle.paths; this.removeEmptyPaths()},
                       error => this.errorMessage = <any>error);
   }
   

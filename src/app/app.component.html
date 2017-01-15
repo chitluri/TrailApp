@@ -2,29 +2,43 @@
   {{title}}
 </h1>
 
+<div class="col-md-2">
+	<ul>
+		<li class="list-group-item list-group-item-info" (click)="getTrails()">Get Trails</li>
+	</ul>
+	<ul>
+		<li  *ngFor="let p of paths; let i = index;" (click)="setPolylines(i)" class="list-group-item" [ngIf]="p.path_name">{{p.path_name}}</li>
+	</ul>	
+</div>
+<div class="col-md-10">
 <sebm-google-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-  <sebm-google-map-marker *ngFor="let p of places let i = index;" [latitude]="p.place_position.lat" [longitude]="p.place_position.lng"></sebm-google-map-marker>
-  <sebm-google-map-polyline>
+  <sebm-google-map-marker *ngFor="let p of places let i = index;" [latitude]="p.place_position.lat" [longitude]="p.place_position.lng">
+  	<sebm-google-map-info-window [disableAutoPan]="true">
+  		<span *ngIf="p.place_image"><strong>Place Image:</strong> <img src="{{p.place_image}}" width="60" height="60"><br></span>
+        <span *ngIf="p.place_radius"><strong>Place Radius:</strong> {{p.place_radius}}<br></span>
+        <span *ngIf="p.place_position"><strong>Place position:</strong> lat: {{p.place_position.lat}}  lng: {{p.place_position.lng}}<br></span>
+        <span *ngIf="p.place_info"><strong>Place info:</strong> {{p.place_info}}<br> </span> 
+        <span *ngIf="p.place_name"><strong>Place Name:</strong> {{p.place_name}}<br></span>        
+    </sebm-google-map-info-window>
+  </sebm-google-map-marker>
+  <sebm-google-map-polyline (lineClick)="polyLineClicked()" [strokeColor]="strokeColor">
          <sebm-google-map-polyline-point *ngFor="let p of polypoints let i = index;" [latitude]="p.lat" [longitude]="p.lng">
          </sebm-google-map-polyline-point>
+         <sebm-google-map-info-window *ngIf="path" [disableAutoPan]="true" [latitude]="lat" [longitude]="lng" [isOpen]="enablePolyInfoWindow" (infoWindowClose)="enablePolyInfoWindow = false">
+         	<span *ngIf="path.path_image"><strong>Path image:</strong> <img src="{{path.path_image}}" width="60" height="60"><br></span>
+         	<span *ngIf="path.path_name"><strong>Path Name:</strong> {{path.path_name}}<br></span>
+	        <span *ngIf="path.path_length"><strong>Path Length:</strong> {{path.path_length}}<br></span>
+	        <span *ngIf="path.path_time"><strong>Path Time:</strong> {{path.path_time}}<br> </span> 
+	        <span *ngIf="path.path_info"><strong>Path Info:</strong> {{path.path_info}}<br></span> 
+         </sebm-google-map-info-window>
      </sebm-google-map-polyline>
 </sebm-google-map>
-<br><br>
+</div>
 <!-- <ul>
  <li *ngFor="let p of posts;">User ID: {{p.userId}} Title: {{p.title}}<li>
 </ul> -->
-<div class="col-md-4">
-	<button type="button" class="btn btn-primary" (click)="getTrails()">Get Trails</button>	
-</div>
-<br>
-<br>
-<br>
 
-<div class="col-md-2">
-	<ul>
-		<li *ngFor="let p of paths; let i = index;" (click)="setPolylines(i)" class="list-group-item list-group-item-success">{{p.path_name}}</li>
-	</ul>
-</div>
+
  
 
 

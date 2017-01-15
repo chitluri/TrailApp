@@ -22,10 +22,13 @@ export class AppComponent {
   lat: number = 51.678418;
   lng: number = 7.809007;
   zoom: number = 15;
+  strokeColor: string = "green";
   polypoints: coordinate[] = [];
   places: Place[] = [];
   posts: Post[] = [];
   paths: Path[];
+  path: Path;
+  enablePolyInfoWindow: boolean = false;
   errorMessage;
   
   constructor(private postService: PostserviceService, private trailService: TrailmapService) {}
@@ -39,6 +42,7 @@ export class AppComponent {
   setPolylines(index: number){
     this.polypoints = this.paths[index].path_polyline[0];
     this.places = this.paths[index].places;
+    this.path = this.paths[index];
     this.lat = this.polypoints[0].lat;
     this.lng = this.polypoints[0].lng;
   }
@@ -56,6 +60,11 @@ export class AppComponent {
                       .subscribe(
                       bundle => this.paths = bundle.paths,
                       error => this.errorMessage = <any>error);
+  }
+  
+  polyLineClicked(){
+    console.log("Clicked. Setting it to "+!this.enablePolyInfoWindow);
+    this.enablePolyInfoWindow = !this.enablePolyInfoWindow;
   }
 
   getCoordinates(): coordinate[]{

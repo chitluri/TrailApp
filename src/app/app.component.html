@@ -2,13 +2,20 @@
   	<div class="jumbotron">
     	<h1> {{title}} </h1>
   	</div>
-  	<div class="col-md-2">
+  	<!-- <div class="col-md-2">
 		<ul>
 			<li class="list-group-item list-group-item-info" (click)="getTrails()">Get Trails</li>
 		</ul>
 		<ul>
 			<li  *ngFor="let p of paths; let i = index;" (click)="setPolylines(i)" class="list-group-item">{{p.path_name}}</li>
 		</ul>	
+	</div> -->
+	<div class="col-md-2">
+		
+			<p class="list-group-item list-group-item-info" (click)="getTrails()">Get Trails</p>
+			<br>		
+			<p  *ngFor="let p of paths; let i = index;" (click)="setPolylines(i)" class="list-group-item">{{p.path_name}}</p>
+			
 	</div>
 	<div class="col-md-10">
 		<sebm-google-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">

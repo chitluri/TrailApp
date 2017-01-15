@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { TrailMapService } from './service/trailmap.service'
-import { Post }           from './post';
 import { Bundle } from './shared/Bundle';
 import { Path } from './shared/Path';
 import { Place } from './shared/Place';
@@ -14,7 +13,7 @@ import './rxjs-operators';
     .sebm-google-map-container {
       height: 500px;
     }
-    li { cursor: pointer;}
+    p { cursor: pointer;}
   `]
 })
 export class AppComponent {
@@ -26,7 +25,6 @@ export class AppComponent {
   strokeColor: string = "green";
   polypoints: PlacePosition[] = [];
   places: Place[] = [];
-  posts: Post[] = [];
   paths: Path[];
   path: Path;
   enablePolyInfoWindow: boolean = false;

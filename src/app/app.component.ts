@@ -17,7 +17,7 @@ import './rxjs-operators';
   `]
 })
 export class AppComponent {
-  title = 'Trail App!';
+  title = 'Trail App';
   
   lat: number = 51.678418;
   lng: number = 7.809007;

@@ -1,3 +1,30 @@
 <h1>
   {{title}}
 </h1>
+
+<sebm-google-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+  <sebm-google-map-marker *ngFor="let p of places let i = index;" [latitude]="p.place_position.lat" [longitude]="p.place_position.lng"></sebm-google-map-marker>
+  <sebm-google-map-polyline>
+         <sebm-google-map-polyline-point *ngFor="let p of polypoints let i = index;" [latitude]="p.lat" [longitude]="p.lng">
+         </sebm-google-map-polyline-point>
+     </sebm-google-map-polyline>
+</sebm-google-map>
+<br><br>
+<!-- <ul>
+ <li *ngFor="let p of posts;">User ID: {{p.userId}} Title: {{p.title}}<li>
+</ul> -->
+<div class="col-md-4">
+	<button type="button" class="btn btn-primary" (click)="getTrails()">Get Trails</button>	
+</div>
+<br>
+<br>
+<br>
+
+<div class="col-md-2">
+	<ul>
+		<li *ngFor="let p of paths; let i = index;" (click)="setPolylines(i)" class="list-group-item list-group-item-success">{{p.path_name}}</li>
+	</ul>
+</div>
+ 
+
+

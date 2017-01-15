@@ -1,7 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ApplicationRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, JsonpModule } from '@angular/http';
+import { AgmCoreModule } from 'angular2-google-maps/core';
+import { PostserviceService } from './service/postservice.service'
+import { TrailmapService } from './service/trailmap.service'
 
 import { AppComponent } from './app.component';
 
@@ -12,9 +15,13 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    JsonpModule,
+    HttpModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAW5v5BdV8VRbWCc6puE0l_UKFuAj-8_bI'
+    })
   ],
-  providers: [],
+  providers: [PostserviceService, TrailmapService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
